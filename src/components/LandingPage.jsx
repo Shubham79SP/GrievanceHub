@@ -1,4 +1,3 @@
-// ...existing code from LandingPage.js...
 import { Link } from "react-router-dom"
 import { Container, Row, Col, Card, Button } from "react-bootstrap"
 
@@ -151,5 +150,4 @@ const LandingPage = () => {
     </div>
   )
 }
-
 export default LandingPage
