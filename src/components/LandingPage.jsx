@@ -10,9 +10,10 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <Header />
-      <HeroSection />
+      {/* <HeroSection /> */}
       
       
+      {/* Registration process section removed, now only faculty and student sections remain */}
       <div className="py-5" style={{ background: '#f8fafc' }}>
         <div className="container">
           <div className="row">

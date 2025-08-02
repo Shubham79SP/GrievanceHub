@@ -79,6 +79,46 @@ const RegisterPage = () => {
                       </div>
                       <h4 className="text-primary-custom fw-bold mb-3">Join Our Community</h4>
                       <p className="text-muted px-3">Students, Faculty, and Administrators working together</p>
+
+                      {/* Registration Process Stepper */}
+                      <div className="mt-5">
+                        <h5 className="fw-bold text-dark mb-4">Registration Process</h5>
+                        <div className="d-flex flex-row justify-content-center gap-4">
+                          {/* Step 1 */}
+                          <div className="text-center">
+                            <div className="bg-primary-custom rounded-circle mx-auto mb-2 d-flex align-items-center justify-content-center" style={{ width: '48px', height: '48px' }}>
+                              <i className="fas fa-user-plus text-white fs-4"></i>
+                            </div>
+                            <div className="fw-semibold">Register</div>
+                            <div className="small text-muted">Create account<br/>with institutional credentials</div>
+                          </div>
+                          {/* Step 2 */}
+                          <div className="text-center">
+                            <div className="bg-primary-custom rounded-circle mx-auto mb-2 d-flex align-items-center justify-content-center" style={{ width: '48px', height: '48px' }}>
+                              <span className="fw-bold text-white fs-5">2</span>
+                            </div>
+                            <div className="fw-semibold">Verification</div>
+                            <div className="small text-muted">Admin verifies<br/>credentials and department</div>
+                          </div>
+                          {/* Step 3 */}
+                          <div className="text-center">
+                            <div className="bg-primary-custom rounded-circle mx-auto mb-2 d-flex align-items-center justify-content-center" style={{ width: '48px', height: '48px' }}>
+                              <i className="fas fa-check text-white fs-5"></i>
+                            </div>
+                            <div className="fw-semibold">Approval</div>
+                            <div className="small text-muted">Receive approval<br/>and dashboard access</div>
+                          </div>
+                          {/* Step 4 */}
+                          <div className="text-center">
+                            <div className="bg-primary-custom rounded-circle mx-auto mb-2 d-flex align-items-center justify-content-center" style={{ width: '48px', height: '48px' }}>
+                              <i className="fas fa-play text-white fs-5"></i>
+                            </div>
+                            <div className="fw-semibold">Start Managing</div>
+                            <div className="small text-muted">Begin receiving<br/>and resolving complaints</div>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </Col>

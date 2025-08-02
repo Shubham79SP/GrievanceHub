@@ -54,8 +54,7 @@ const StudentSection = () => {
                   <h6 className="fw-bold mb-0 text-success">No Registration Required</h6>
                 </div>
                 <p className="text-muted mb-2 small">
-                  Your credentials are pre-provided by the institute. Simply log in using your PRN (Permanent
-                  Registration Number) and password to access the system immediately.
+                  Your credentials are pre-provided by the institute.
                 </p>
                 <div className="bg-light p-2 rounded">
                   <small className="text-muted">
@@ -76,7 +75,7 @@ const StudentSection = () => {
                   <h6 className="fw-bold mb-0">Easy Access</h6>
                 </div>
                 <p className="text-muted mb-2 small">
-                  Log in with your PRN and password to access your personalized dashboard. Manage your profile, submit
+                  Log in with your PRN Manage your profile, submit
                   complaints, and track their progress all in one place.
                 </p>
                 <div className="d-flex align-items-center justify-content-between">
