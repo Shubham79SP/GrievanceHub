@@ -25,35 +25,10 @@ const FacultySection = () => {
     },
   ]
 
-  const registrationSteps = [
-    {
-      step: "1",
-      title: "Register",
-      description: "Create account with institutional credentials",
-      icon: "fas fa-user-plus",
-    },
-    {
-      step: "2",
-      title: "Verification",
-      description: "Admin verifies credentials and department",
-      icon: "fas fa-shield-check",
-    },
-    {
-      step: "3",
-      title: "Approval",
-      description: "Receive approval and dashboard access",
-      icon: "fas fa-check-circle",
-    },
-    {
-      step: "4",
-      title: "Start Managing",
-      description: "Begin receiving and resolving complaints",
-      icon: "fas fa-play-circle",
-    },
-  ]
+ 
 
   return (
-    <section id="faculty" className="faculty-section py-3 bg-white">
+    <section id="faculty" className="faculty-section py-3 bg-light">
       <Container>
         <Row className="text-center mb-3">
           <Col>
@@ -81,8 +56,8 @@ const FacultySection = () => {
                   <h6 className="fw-bold mb-0 text-warning">Registration Required</h6>
                 </div>
                 <p className="text-muted mb-2 small">
-                  Faculty members must register and await admin approval before accessing complaint management features.
-                  This ensures security and proper authorization.
+                  Faculty members must register and wait for admin approval.
+                  
                 </p>
                 <div className="d-flex align-items-center justify-content-between">
                   <Link to="/register">
@@ -109,49 +84,10 @@ const FacultySection = () => {
                   Complaints are automatically assigned to faculty members based on their department, expertise, and
                   current workload, ensuring efficient resolution.
                 </p>
-                <div className="bg-light p-2 rounded">
-                  <small className="text-muted">
-                    <i className="fas fa-lightbulb me-1 text-primary-custom"></i>
-                    AI-powered categorization ensures relevant complaint assignment
-                  </small>
-                </div>
+                
               </Card.Body>
             </Card>
           </Col>
-        </Row>
-
-        <Row className="mb-4">
-          <Col>
-            <h5 className="fw-bold text-center mb-3">Registration Process</h5>
-          </Col>
-        </Row>
-        <Row className="mb-4">
-          {registrationSteps.map((step, index) => (
-            <Col key={index} md={6} lg={3} className="mb-3">
-              <Card className="card-custom h-100 text-center border-0 shadow-sm">
-                <Card.Body className="p-3">
-                  <div className="mb-2">
-                    <div
-                      className="bg-primary-custom rounded-circle p-2 mx-auto mb-1"
-                      style={{ width: "40px", height: "40px" }}
-                    >
-                      <i className={`${step.icon} text-white small`}></i>
-                    </div>
-                    <div
-                      className="bg-secondary rounded-circle text-white fw-bold mx-auto"
-                      style={{ width: "24px", height: "24px", lineHeight: "24px", fontSize: "12px" }}
-                    >
-                      {step.step}
-                    </div>
-                  </div>
-                  <h6 className="fw-bold mb-2 small">{step.title}</h6>
-                  <p className="text-muted small" style={{ fontSize: "0.75rem" }}>
-                    {step.description}
-                  </p>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
         </Row>
 
         <Row>
