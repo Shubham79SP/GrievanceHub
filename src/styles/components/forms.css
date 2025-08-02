@@ -1,0 +1,63 @@
+/* Form Component Styles */
+
+/* Login/Register Pages */
+.login-page,
+.register-page {
+  background-color: var(--light-gray);
+}
+
+.register-page .card-custom {
+  min-height: 90vh;
+}
+
+.register-form {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Login page specific styles */
+.login-page .card-custom {
+  min-height: 70vh;
+}
+
+.login-form {
+  padding: 1rem 0;
+}
+
+/* Compact form styling for both login and register pages */
+.login-page .form-group,
+.register-page .form-group {
+  margin-bottom: 0.75rem;
+}
+
+.login-page .form-label,
+.register-page .form-label {
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.login-page .form-control,
+.login-page .form-select,
+.register-page .form-control,
+.register-page .form-select {
+  font-size: 0.875rem;
+}
+
+.register-page .form-control,
+.register-page .form-select {
+  padding: 8px 12px;
+}
+
+/* Consistent small text sizing */
+.small {
+  font-size: 0.875rem !important;
+}
+
+/* Remove any potential conflicts */
+.container,
+.row,
+.col,
+.col-md-6,
+.col-lg-6 {
+  box-sizing: border-box;
+}

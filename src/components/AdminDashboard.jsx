@@ -4,9 +4,9 @@ import { useState } from "react"
 import { Container, Row, Col, Card, Button, Badge, Nav, Navbar } from "react-bootstrap"
 import UserManagementSection from "./admin/UserManagementSection"
 import SystemOverviewSection from "./admin/SystemOverviewSection"
-import CategoryManagementSection from "./admin/CategoryManagementSection"
-import AdminProfileSection from "./admin/AdminProfileSection"
-import AdminAccountSettings from "./admin/AdminAccountSettings"
+import CategoryManagementSection from "./admin/CategoryManagementSection.jsx"
+import AdminProfileSection from "./admin/AdminProfileSection.jsx"
+import AdminAccountSettings from "./admin/AdminAccountSettings.jsx"
 import { Link } from "react-router-dom"
 
 const AdminDashboard = () => {

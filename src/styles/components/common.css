@@ -1,0 +1,111 @@
+/* Common Component Styles */
+
+/* Card Styles */
+.card-custom {
+  background: white !important;
+  border-radius: 16px !important;
+  box-shadow: var(--shadow) !important;
+  border: none !important;
+}
+
+/* Form Styles */
+.form-control {
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-size: 14px !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.form-control:focus {
+  border-color: var(--primary-blue) !important;
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.1) !important;
+}
+
+.form-control.form-control-sm {
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+}
+
+.form-select {
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-size: 14px !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.form-select:focus {
+  border-color: var(--primary-blue) !important;
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.1) !important;
+}
+
+.form-select.form-select-sm {
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+}
+
+/* Illustration Container */
+.illustration-container {
+  background: linear-gradient(135deg, var(--light-blue) 0%, #f0f7ff 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+}
+
+/* Navbar Brand */
+.navbar-brand {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 3rem 0;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.hero-content .lead {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Features Section */
+.features-section {
+  padding: 4rem 0;
+}
+
+.features-section .card {
+  transition: transform 0.3s ease;
+}
+
+.features-section .card:hover {
+  transform: translateY(-5px);
+}
+
+/* Chatbot Styles */
+.chat-messages {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: var(--primary-blue);
+  border-radius: 4px;
+}

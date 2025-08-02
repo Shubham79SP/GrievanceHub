@@ -1,0 +1,90 @@
+/* Import all component styles */
+@import "./components/common.css";
+@import "./components/dashboard.css";
+@import "./components/forms.css";
+
+/* Custom CSS Variables for consistent theming */
+:root {
+  --primary-blue: #4f7cff;
+  --light-blue: #e8f0ff;
+  --dark-blue: #2c5aa0;
+  --gray-text: #6b7280;
+  --light-gray: #f8f9fa;
+  --white: #ffffff;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  background-color: var(--light-gray);
+  color: #333;
+}
+
+/* Custom Button Styles */
+.primary-btn {
+  background-color: var(--primary-blue) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 12px 24px !important;
+  transition: all 0.3s ease !important;
+}
+
+.primary-btn:hover {
+  background-color: var(--dark-blue) !important;
+  transform: translateY(-1px);
+  color: white !important;
+}
+
+.secondary-btn {
+  background-color: transparent !important;
+  border: 2px solid var(--primary-blue) !important;
+  border-radius: 8px !important;
+  color: var(--primary-blue) !important;
+  font-weight: 600 !important;
+  padding: 10px 24px !important;
+  transition: all 0.3s ease !important;
+}
+
+.secondary-btn:hover {
+  background-color: var(--primary-blue) !important;
+  color: white !important;
+}
+
+/* Text Colors */
+.text-primary-custom {
+  color: var(--primary-blue) !important;
+}
+
+.bg-primary-custom {
+  background-color: var(--primary-blue) !important;
+}
+
+/* Utility Classes */
+.min-vh-75 {
+  min-height: 75vh;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content .lead {
+    font-size: 1rem;
+  }
+
+  .illustration-container {
+    min-height: 250px;
+    padding: 1rem;
+  }
+}

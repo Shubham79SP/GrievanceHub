@@ -1,0 +1,83 @@
+/* Dashboard Component Styles */
+
+/* Dashboard Styles */
+.student-dashboard,
+.faculty-dashboard,
+.admin-dashboard {
+  background-color: var(--light-gray);
+  min-height: 100vh;
+}
+
+.student-dashboard .nav-link,
+.faculty-dashboard .nav-link,
+.admin-dashboard .nav-link {
+  color: #6c757d !important;
+  border-radius: 8px !important;
+  margin-bottom: 2px;
+  transition: all 0.3s ease;
+}
+
+.student-dashboard .nav-link:hover,
+.faculty-dashboard .nav-link:hover {
+  background-color: rgba(79, 124, 255, 0.1) !important;
+  color: var(--primary-blue) !important;
+}
+
+.admin-dashboard .nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  color: #000 !important;
+}
+
+.student-dashboard .nav-link.bg-primary-custom,
+.faculty-dashboard .nav-link.bg-primary-custom {
+  background-color: var(--primary-blue) !important;
+  color: white !important;
+}
+
+.admin-dashboard .nav-link.bg-dark {
+  background-color: #000 !important;
+  color: white !important;
+}
+
+/* Table Styles */
+.table th {
+  background-color: var(--light-gray) !important;
+  border-bottom: 2px solid #dee2e6 !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+}
+
+.table td {
+  vertical-align: middle !important;
+  font-size: 0.875rem !important;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(79, 124, 255, 0.05) !important;
+}
+
+/* Badge Styles */
+.badge {
+  font-size: 0.75rem !important;
+  padding: 0.375rem 0.75rem !important;
+}
+
+/* Modal Styles */
+.modal-header {
+  background-color: var(--light-gray) !important;
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+.modal-title {
+  color: var(--primary-blue) !important;
+  font-weight: 600 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .student-dashboard .table-responsive,
+  .faculty-dashboard .table-responsive,
+  .admin-dashboard .table-responsive {
+    font-size: 0.8rem;
+  }
+}
