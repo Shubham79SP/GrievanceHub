@@ -5,6 +5,7 @@ import RegisterPage from "../components/RegisterPage"
 import StudentDashboard from "../components/StudentDashboard"
 import FacultyDashboard from "../components/FacultyDashboard"
 import AdminDashboard from "../components/AdminDashboard"
+import ForgotPassword from "../pages/ForgotPassword.jsx"
 
 const AppRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
       <Route path="/student-dashboard" element={<StudentDashboard />} />
       <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
       <Route path="/admin-dashboard" element={<AdminDashboard />} />
+     <Route path="/forgotPassword" element = {<ForgotPassword/>}/>
     </Routes>
   )
 }

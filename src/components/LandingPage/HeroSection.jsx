@@ -1,7 +1,16 @@
-import { Link } from "react-router-dom"
+
 import { Container, Row, Col, Button } from "react-bootstrap"
+import { useRef } from "react"
 
 const HeroSection = () => {
+  // Scroll to section by id
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "auto" });
+    }
+  };
+
   return (
     <section className="hero-section">
       <Container>
@@ -17,12 +26,8 @@ const HeroSection = () => {
                 resolve academic and administrative complaints with transparency and accountability.
               </p>
               <div className="hero-buttons">
-                <Link to="/register" className="me-3">
-                  <Button className="primary-btn btn-lg">Register Now</Button>
-                </Link>
-                <Link to="/login">
-                  <Button className="secondary-btn btn-lg">Sign In</Button>
-                </Link>
+                <Button className="primary-btn btn-lg me-3" onClick={() => scrollToSection("faculty")}>Register Now</Button>
+                <Button className="secondary-btn btn-lg" onClick={() => scrollToSection("students")}>Sign In</Button>
               </div>
             </div>
           </Col>

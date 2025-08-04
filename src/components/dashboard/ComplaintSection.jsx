@@ -2,17 +2,22 @@
 
 import { useState } from "react"
 import { Card, Button, Table, Badge, Modal, Form, Row, Col } from "react-bootstrap"
+import EditComplaintModal from "./EditComplaintModal"
 
 const ComplaintSection = ({ studentData }) => {
   const [showNewComplaintModal, setShowNewComplaintModal] = useState(false)
   const [showViewModal, setShowViewModal] = useState(false)
   const [selectedComplaint, setSelectedComplaint] = useState(null)
-  const [newComplaint, setNewComplaint] = useState({
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [editComplaintData, setEditComplaintData] = useState(null)
+ const [newComplaint, setNewComplaint] = useState({
     title: "",
     category: "",
+    subcategory: "",
     description: "",
     file: null,
-  })
+  });
+
 
   // Mock complaints data
   const [complaints, setComplaints] = useState([
@@ -46,6 +51,13 @@ const ComplaintSection = ({ studentData }) => {
   ])
 
   const categories = ["Academic", "Administrative", "Behavioral", "Infrastructure", "Other"]
+  const subcategoryOptions = {
+  Academic: ["Exam Issue", "Assignment Grading", "Syllabus Coverage"],
+  Administrative: ["Hostel", "Fees", "Transport", "Scholarship"],
+  Behavioral: ["Faculty Misconduct", "Student Misconduct", "Harassment"],
+  Infrastructure: ["Wi-Fi", "Classroom Maintenance", "Lab Equipment"],
+  Other: ["General", "Suggestion", "Technical Support"],
+};
 
   const getStatusBadge = (status) => {
     const variants = {
@@ -70,7 +82,7 @@ const ComplaintSection = ({ studentData }) => {
       lastUpdated: new Date().toISOString().split("T")[0],
     }
     setComplaints([complaint, ...complaints])
-    setNewComplaint({ title: "", category: "", description: "", file: null })
+    setNewComplaint({ title: "", category: "", subcategory: "", description: "", file: null })
     setShowNewComplaintModal(false)
   }
 
@@ -83,6 +95,17 @@ const ComplaintSection = ({ studentData }) => {
     if (window.confirm("Are you sure you want to delete this complaint?")) {
       setComplaints(complaints.filter((c) => c.id !== complaintId))
     }
+  }
+
+  const handleEditComplaint = (complaint) => {
+    setEditComplaintData(complaint)
+    setShowEditModal(true)
+  }
+
+  const handleSaveEditedComplaint = (updatedComplaint) => {
+    setComplaints(
+      complaints.map((c) => (c.id === updatedComplaint.id ? { ...c, ...updatedComplaint } : c))
+    )
   }
 
   return (
@@ -135,9 +158,18 @@ const ComplaintSection = ({ studentData }) => {
                           </Button>
                           {(complaint.status === "Pending" || complaint.status === "Under Review") && (
                             <>
-                              <Button variant="outline-warning" size="sm">
-                                <i className="fas fa-edit"></i>
-                              </Button>
+                          <Button variant="outline-warning" size="sm" onClick={() => handleEditComplaint(complaint)}>
+                            <i className="fas fa-edit"></i>
+                          </Button>
+      {/* Edit Complaint Modal */}
+      <EditComplaintModal
+        show={showEditModal}
+        onHide={() => setShowEditModal(false)}
+        complaint={editComplaintData}
+        onSave={handleSaveEditedComplaint}
+        categories={categories}
+        subcategoryOptions={subcategoryOptions}
+      />
                               <Button
                                 variant="outline-danger"
                                 size="sm"
@@ -193,35 +225,53 @@ const ComplaintSection = ({ studentData }) => {
             {/* Complaint Details */}
             <h6 className="text-primary-custom mb-3">Complaint Details</h6>
             <Row>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Complaint Title</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Enter complaint title"
-                    value={newComplaint.title}
-                    onChange={(e) => setNewComplaint({ ...newComplaint, title: e.target.value })}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Category</Form.Label>
-                  <Form.Select
-                    value={newComplaint.category}
-                    onChange={(e) => setNewComplaint({ ...newComplaint, category: e.target.value })}
-                    required
-                  >
-                    <option value="">Select Category</option>
-                    {categories.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat}
-                      </option>
-                    ))}
-                  </Form.Select>
-                </Form.Group>
-              </Col>
+      <Col md={4}>
+        <Form.Group className="mb-3">
+          <Form.Label>Complaint Title</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter complaint title"
+            value={newComplaint.title}
+            onChange={(e) => setNewComplaint({ ...newComplaint, title: e.target.value })}
+            required
+          />
+        </Form.Group>
+      </Col>
+      <Col md={4}>
+        <Form.Group className="mb-3">
+          <Form.Label>Category</Form.Label>
+          <Form.Select
+            value={newComplaint.category}
+            onChange={(e) => setNewComplaint({ ...newComplaint, category: e.target.value, subcategory: "" })}
+            required
+          >
+            <option value="">Select Category</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      </Col>
+      <Col md={4}>
+        <Form.Group className="mb-3">
+          <Form.Label>Subcategory</Form.Label>
+          <Form.Select
+            value={newComplaint.subcategory}
+            onChange={(e) => setNewComplaint({ ...newComplaint, subcategory: e.target.value })}
+            required
+            disabled={!newComplaint.category}
+          >
+            <option value="">{newComplaint.category ? "Select Subcategory" : "Select Category First"}</option>
+            {newComplaint.category && subcategoryOptions[newComplaint.category].map((subcat) => (
+              <option key={subcat} value={subcat}>
+                {subcat}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+      </Col>
             </Row>
             <Form.Group className="mb-3">
               <Form.Label>Description</Form.Label>

@@ -160,9 +160,14 @@ body {
 }
 
 /* Login/Register Pages */
+
 .login-page,
 .register-page {
   background-color: var(--light-gray);
+}
+
+html, body {
+  overflow-x: hidden !important;
 }
 
 .register-page .card-custom {
@@ -326,3 +331,5 @@ body {
 .col-lg-6 {
   box-sizing: border-box;
 }
+
+

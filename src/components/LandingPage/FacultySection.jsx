@@ -73,18 +73,27 @@ const FacultySection = () => {
           </Col>
           <Col lg={6} className="mb-3">
             <Card className="card-custom h-100 border-0 shadow-sm">
-              <Card.Body className="p-3">
-                <div className="d-flex align-items-center mb-2">
-                  <div className="bg-info rounded-circle p-2 me-2" style={{ width: "32px", height: "32px" }}>
-                    <i className="fas fa-cogs text-white small"></i>
+              <Card.Body className="p-3 d-flex flex-column justify-content-between" style={{ minHeight: "180px" }}>
+                <div>
+                  <div className="d-flex align-items-center mb-2">
+                    <div className="bg-info rounded-circle p-2 me-2" style={{ width: "32px", height: "32px" }}>
+                      <i className="fas fa-cogs text-white small"></i>
+                    </div>
+                    <h6 className="fw-bold mb-0 text-info">Smart Assignment</h6>
                   </div>
-                  <h6 className="fw-bold mb-0 text-info">Smart Assignment</h6>
+                  <p className="text-muted mb-2 small">
+                    Complaints are automatically assigned to faculty members based on their department, expertise.
+                  </p>
                 </div>
-                <p className="text-muted mb-2 small">
-                  Complaints are automatically assigned to faculty members based on their department, expertise, and
-                  current workload, ensuring efficient resolution.
-                </p>
-                
+                <div className="d-flex align-items-center justify-content-between mt-2">
+                  <Link to="/login">
+                    <Button className="primary-btn btn-sm">
+                      <i className="fas fa-sign-in-alt me-1"></i>
+                      Faculty Login
+                    </Button>
+                  </Link>
+                  <small className="text-muted">Use your faculty credentials</small>
+                </div>
               </Card.Body>
             </Card>
           </Col>
