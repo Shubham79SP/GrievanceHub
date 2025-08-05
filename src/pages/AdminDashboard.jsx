@@ -45,8 +45,9 @@ const AdminDashboard = () => {
       key: "users",
       label: "User Management",
       icon: "fas fa-users",
-      badge: pendingApprovals > 0 ? pendingApprovals : null,
-      badgeColor: "warning",
+     
+
+      
     },
     {
       key: "categories",
@@ -91,8 +92,6 @@ const AdminDashboard = () => {
     <div className="admin-dashboard">
       <Navbar
         brandText="GrievanceHub - Admin Panel"
-        showNotifications={true}
-        notificationCount={pendingApprovals}
         onLogout={handleLogout}
         userType="admin"
       />
