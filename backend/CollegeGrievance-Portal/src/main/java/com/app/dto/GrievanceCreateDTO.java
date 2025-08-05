@@ -13,6 +13,7 @@ import jakarta.validation.constraints.NotNull;
 
 //For Student to Submit Grievance 
 public class GrievanceCreateDTO {
+	private Long categoryId;
 
     @NotBlank(message = "Title is required")
     private String title;
@@ -20,8 +21,8 @@ public class GrievanceCreateDTO {
     @NotBlank(message = "Description is required")
     private String description;
 
-    @NotBlank(message = "Category ID is required")
-    private String categoryId;
+    @NotBlank(message = "Category Name is required")
+    private String categoryName;
 
     @NotBlank(message = "Student ID (PRN) is required")
     private Long studentId;

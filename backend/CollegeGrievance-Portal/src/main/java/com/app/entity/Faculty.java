@@ -3,19 +3,21 @@ package com.app.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "faculties")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "grievances")
+@EqualsAndHashCode(exclude = "grievances")
+@Table(name = "faculties")
 public class Faculty {
 
     @Id
-//    @Column(nullable = false, unique = true)
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+//    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;  // Faculty ID
 
     private String fullName;
@@ -40,5 +42,6 @@ public class Faculty {
 
     // Reverse mapping (optional if you need to access grievances assigned to faculty)
     @OneToMany(mappedBy = "facultyAssigned", cascade = CascadeType.ALL)
-    private List<Grievance> grievances;
+    private List<Grievance> grievances = new ArrayList<>();//initalise to abvoid nullpointer
+
 }

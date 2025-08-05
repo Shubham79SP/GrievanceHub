@@ -11,9 +11,10 @@ import org.springframework.stereotype.Repository;
 import com.app.entity.GrievanceCategory;
 
 @Repository
-public interface GrievanceCategoryRepository extends JpaRepository<GrievanceCategory, String> {
-	Optional<GrievanceCategory> findByName(String name);
-	boolean existsByName(String name);
+public interface GrievanceCategoryRepository extends JpaRepository<GrievanceCategory, Long> {
+	Optional<GrievanceCategory> findByCategoryName(String categoryName);
+
+	boolean existsByCategoryName(String categoryName);
 
 }
 

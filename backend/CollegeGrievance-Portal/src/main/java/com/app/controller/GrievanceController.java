@@ -17,28 +17,28 @@ public class GrievanceController {
 
     private final GrievanceService grievanceService;
 
-    // ⬅️ Create a new grievance (by student)
+    //  Create a new grievance (by student)
     @PostMapping
     public ResponseEntity<GrievanceResponseDTO> createGrievance(@RequestBody GrievanceCreateDTO dto) {
         GrievanceResponseDTO created = grievanceService.createGrievance(dto);
         return ResponseEntity.ok(created);
     }
 
-    // ⬅️ Get all grievances (admin/faculty/student based on role)
+    //  Get all grievances (admin/faculty/student based on role)
     @GetMapping
     public ResponseEntity<List<GrievanceResponseDTO>> getAllGrievances() {
         List<GrievanceResponseDTO> list = grievanceService.getAllGrievances();
         return ResponseEntity.ok(list);
     }
 
-    // ⬅️ Get grievance by ID
+    // Get grievance by ID
     @GetMapping("/{id}")
     public ResponseEntity<GrievanceResponseDTO> getById(@PathVariable Long id) {
         GrievanceResponseDTO dto = grievanceService.getGrievanceById(id);
         return ResponseEntity.ok(dto);
     }
 
-    // ⬅️ Faculty updates grievance (remark, status, assigned faculty, etc.)
+    //  Faculty updates grievance (remark, status, assigned faculty, etc.)
     @PutMapping("/{id}/faculty-update")
     public ResponseEntity<GrievanceResponseDTO> updateByFaculty(
             @PathVariable Long id,
@@ -48,7 +48,7 @@ public class GrievanceController {
         return ResponseEntity.ok(updated);
     }
 
-    // ⬅️ Get grievances for a specific student
+    //  Get grievances for a specific student
     @GetMapping("/student/{studentId}")
     public ResponseEntity<GrievanceResponseDTO> getGrievancesByStudent(@PathVariable Long studentId) {
         return ResponseEntity.ok(grievanceService.getGrievanceById(studentId));

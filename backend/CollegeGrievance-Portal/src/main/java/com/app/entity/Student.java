@@ -12,8 +12,8 @@ import lombok.*;
 public class Student {
 
     @Id
-//    @Column(nullable = false, unique = true)
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
+//    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long prnNo; //primary key 
 
     private String name;
@@ -23,7 +23,10 @@ public class Student {
     private String year;
     private String course;
     private String photo;  //Store image UR
+
+    @Column(nullable = false)
     private String password; 
+    private String address;
 }
 
 
