@@ -40,21 +40,7 @@ const StudentDashboard = () => {
             </Link>
           </Navbar.Brand>
           <div className="d-flex align-items-center">
-            <div className="position-relative me-3">
-              <Button variant="outline-primary" size="sm" className="position-relative">
-                <i className="fas fa-bell"></i>
-                {notifications > 0 && (
-                  <Badge
-                    bg="danger"
-                    pill
-                    className="position-absolute top-0 start-100 translate-middle"
-                    style={{ fontSize: "0.6rem" }}
-                  >
-                    {notifications}
-                  </Badge>
-                )}
-              </Button>
-            </div>
+            {/* Notification icon removed */}
             <Button variant="outline-danger" size="sm" onClick={handleLogout}>
               <i className="fas fa-sign-out-alt me-1"></i>
               Logout
@@ -130,13 +116,7 @@ const StudentDashboard = () => {
                   </Nav.Link>
                 </Nav>
 
-                {/* Chat with Bot Button */}
-                <div className="p-3 border-top">
-                  <Button variant="outline-primary" size="sm" className="w-100">
-                    <i className="fas fa-robot me-2"></i>
-                    Chat with Bot
-                  </Button>
-                </div>
+              
               </Card.Body>
             </Card>
           </Col>
