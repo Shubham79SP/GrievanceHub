@@ -12,7 +12,7 @@ public interface StudentService {
 	Student getStudentByPrn(Long prnNo);
 	 boolean deleteStudentByPrn(Long prnNo);
 	 Student updateStudent(Long prnNo, Student updatedStudent);
-	 String loginStudent(LoginRequest request);
+//	 String loginStudent(LoginRequest request);
 
 
 }

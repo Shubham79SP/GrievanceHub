@@ -24,7 +24,7 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Student addStudent(Student student) {
 //		Encode the password before saving
-        student.setPassword(encoder.encode(student.getPassword()));
+//        student.setPassword(encoder.encode(student.getPassword()));
 		 return studentRepository.save(student);
 		
 		
@@ -65,29 +65,29 @@ public class StudentServiceImpl implements StudentService {
 	    existingStudent.setCourse(updatedStudent.getCourse());
 	    existingStudent.setPhoto(updatedStudent.getPhoto());
 	 // Re-encode the password if it’s updated
-	    existingStudent.setPassword(encoder.encode(updatedStudent.getPassword()));
+//	    existingStudent.setPassword(encoder.encode(updatedStudent.getPassword()));
 
 	    return studentRepository.save(existingStudent);
 	
 		
 	}
 
-	@Override
-	public String loginStudent(LoginRequest request) {
-		//first get that Student using prn number
-		Student loginStudent = studentRepository.findById(request.getPrnNo())
-				.orElseThrow(()-> new RuntimeException("Invalid PRN!!"));
-		
-		boolean isPasswordMatch = encoder.matches(request.getPassword(), loginStudent.getPassword());
-		
-		if(isPasswordMatch) {
-			return "Login Successfully!!";
-		}
-		else {
-			throw new RuntimeException("Invalid Password!!!");
-		}
-		
-	}
-	
+//	@Override
+//	public String loginStudent(LoginRequest request) {
+//		//first get that Student using prn number
+//		Student loginStudent = studentRepository.findById(request.getPrnNo())
+//				.orElseThrow(()-> new RuntimeException("Invalid PRN!!"));
+//		
+//		boolean isPasswordMatch = encoder.matches(request.getPassword(), loginStudent.getPassword());
+//		
+//		if(isPasswordMatch) {
+//			return "Login Successfully!!";
+//		}
+//		else {
+//			throw new RuntimeException("Invalid Password!!!");
+//		}
+//		
+//	}
+//	
 
 }

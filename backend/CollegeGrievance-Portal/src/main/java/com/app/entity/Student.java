@@ -24,9 +24,18 @@ public class Student {
     private String course;
     private String photo;  //Store image UR
 
-    @Column(nullable = false)
-    private String password; 
+//    @Column(nullable = false)
+//    private String password; 
     private String address;
+    
+    
+    
+ //
+    @OneToOne
+    @JoinColumn(name = "user_id") // this column in student table references user table
+    private User user;
+
+
 }
 
 

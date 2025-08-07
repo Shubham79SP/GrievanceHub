@@ -75,9 +75,9 @@ public class StudentController {
         }
     }
     
-    @PostMapping("/login")
-    public ResponseEntity<String> loginStudent(@RequestBody LoginRequest request) {
-        String message = studentService.loginStudent(request);
-        return ResponseEntity.ok(message);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<String> loginStudent(@RequestBody LoginRequest request) {
+//        String message = studentService.loginStudent(request);
+//        return ResponseEntity.ok(message);
+//    }
 }

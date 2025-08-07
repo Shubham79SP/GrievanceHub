@@ -43,5 +43,13 @@ public class Faculty {
     // Reverse mapping (optional if you need to access grievances assigned to faculty)
     @OneToMany(mappedBy = "facultyAssigned", cascade = CascadeType.ALL)
     private List<Grievance> grievances = new ArrayList<>();//initalise to abvoid nullpointer
+    
+    
+ // 
+    @OneToOne
+    @JoinColumn(name = "user_id") // same logic as above
+    private User user;
+
+
 
 }
