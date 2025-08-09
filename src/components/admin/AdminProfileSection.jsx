@@ -8,7 +8,7 @@ const AdminProfileSection = ({ adminData }) => {
     name: adminData.name,
     email: adminData.email,
     phone: "+91 9876543210",
-    address: "Admin Office, College Campus, City - 123456",
+    
     profilePic: null,
   })
   const [showAlert, setShowAlert] = useState(false)
@@ -135,17 +135,7 @@ const AdminProfileSection = ({ adminData }) => {
               </Col>
             </Row>
 
-            <Form.Group className="mb-4">
-              <Form.Label>Address</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                name="address"
-                value={profileData.address}
-                onChange={handleInputChange}
-                required
-              />
-            </Form.Group>
+           
 
             <div className="text-end">
               <Button type="submit" className="btn btn-dark">

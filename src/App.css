@@ -295,29 +295,29 @@ html, body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  /* Responsive overrides for hero section */
   .hero-content h1 {
     font-size: 2rem;
   }
-
   .hero-content .lead {
     font-size: 1rem;
   }
-
+  /* Responsive illustration container */
   .illustration-container {
     min-height: 250px;
     padding: 1rem;
   }
-
+  /* Responsive card min-height for login/register pages */
   .register-page .card-custom,
   .login-page .card-custom {
     min-height: auto;
   }
-
+  /* Responsive form padding */
   .login-form,
   .register-form {
     padding: 1rem;
   }
-
+  /* Responsive table font size */
   .student-dashboard .table-responsive {
     font-size: 0.8rem;
   }
