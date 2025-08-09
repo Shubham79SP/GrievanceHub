@@ -148,25 +148,12 @@ const FacultyAccountSettings = () => {
             <div className="col-md-6 mb-3">
               <strong>Account Created:</strong> 2020-08-15
             </div>
-            <div className="col-md-6 mb-3">
-              <strong>Grievances Handled:</strong> 45
-            </div>
-            <div className="col-md-6 mb-3">
-              <strong>Average Rating:</strong> 4.2/5 ⭐
-            </div>
+            
           </div>
 
-          <hr />
+          
 
-          <div className="text-center">
-            <p className="text-muted small mb-3">
-              Need technical support or have questions about the grievance system? Contact the IT department.
-            </p>
-            <Button variant="outline-primary" size="sm">
-              <i className="fas fa-envelope me-2"></i>
-              Contact IT Support
-            </Button>
-          </div>
+          
         </Card.Body>
       </Card>
     </div>
