@@ -2,24 +2,24 @@
 
 import { useState } from "react"
 import { Container, Row, Col, Card, Button, Badge, Nav, Navbar } from "react-bootstrap"
-import ProfileSection from "../components/student/ProfileSection"
-import ComplaintSection from "../components/student/ComplaintSection"
-import AccountSettings from "../components/student/AccountSettings"
+import FacultyProfileSection from "../components/faculty/FacultyProfileSection"
+import AssignedGrievancesSection from "../components/faculty/AssignedGrievancesSection"
+import FacultyAccountSettings from "../components/faculty/FacultyAccountSettings"
 import { Link } from "react-router-dom"
 
-const StudentDashboard = () => {
-  const [activeSection, setActiveSection] = useState("complaints")
-  const [notifications] = useState(3) // Mock notification count
+const FacultyDashboard = () => {
+  const [activeSection, setActiveSection] = useState("grievances")
+  const [notifications] = useState(5) // Mock notification count for new assigned grievances
 
-  // Mock student data
-  const studentData = {
-    name: "John Doe",
-    prn: "PRN2024001",
-    year: "2024",
-    course: "Bachelor of Computer Applications",
+  // Mock faculty data
+  const facultyData = {
+    name: "Dr. Sarah Johnson",
+    facultyId: "FAC2024001",
     department: "Computer Science",
-    email: "john.doe@college.edu",
+    designation: "Assistant Professor",
+    email: "sarah.johnson@college.edu",
     profilePic: null, // Will show default avatar
+    joinDate: "2020-08-15",
   }
 
   const handleLogout = () => {
@@ -30,7 +30,7 @@ const StudentDashboard = () => {
   }
 
   return (
-    <div className="student-dashboard">
+    <div className="faculty-dashboard">
       {/* Top Navigation */}
       <Navbar bg="white" className="shadow-sm border-bottom">
         <Container fluid>
@@ -52,8 +52,8 @@ const StudentDashboard = () => {
       {/* Welcome Header */}
       <div className="bg-light py-3">
         <Container fluid>
-          <h4 className="mb-0 text-dark">Welcome, {studentData.name}! 👋</h4>
-          <small className="text-muted">Manage your complaints and track their progress</small>
+          <h4 className="mb-0 text-dark">Welcome, {facultyData.name}! 👨‍🏫</h4>
+          <small className="text-muted">Manage assigned grievances and help resolve student issues</small>
         </Container>
       </div>
 
@@ -70,20 +70,20 @@ const StudentDashboard = () => {
                       className="bg-primary-custom rounded-circle mx-auto mb-2 d-flex align-items-center justify-content-center"
                       style={{ width: "80px", height: "80px" }}
                     >
-                      <i className="fas fa-user text-white fs-3"></i>
+                      <i className="fas fa-chalkboard-teacher text-white fs-3"></i>
                     </div>
-                    <h6 className="fw-bold mb-1">{studentData.name}</h6>
-                    <small className="text-muted">{studentData.prn}</small>
+                    <h6 className="fw-bold mb-1">{facultyData.name}</h6>
+                    <small className="text-muted">{facultyData.facultyId}</small>
                   </div>
                   <div className="small">
                     <div className="mb-1">
-                      <strong>Year:</strong> {studentData.year}
+                      <strong>Department:</strong> {facultyData.department}
                     </div>
                     <div className="mb-1">
-                      <strong>Course:</strong> {studentData.course}
+                      <strong>Designation:</strong> {facultyData.designation}
                     </div>
                     <div className="mb-1">
-                      <strong>Department:</strong> {studentData.department}
+                      <strong>Email:</strong> {facultyData.email}
                     </div>
                   </div>
                 </div>
@@ -91,12 +91,17 @@ const StudentDashboard = () => {
                 {/* Navigation Menu */}
                 <Nav className="flex-column">
                   <Nav.Link
-                    className={`px-3 py-2 ${activeSection === "complaints" ? "bg-primary-custom text-white" : ""}`}
-                    onClick={() => setActiveSection("complaints")}
+                    className={`px-3 py-2 ${activeSection === "grievances" ? "bg-primary-custom text-white" : ""}`}
+                    onClick={() => setActiveSection("grievances")}
                     style={{ cursor: "pointer" }}
                   >
-                    <i className="fas fa-clipboard-list me-2"></i>
-                    My Complaints
+                    <i className="fas fa-tasks me-2"></i>
+                    Assigned Grievances
+                    {notifications > 0 && (
+                      <Badge bg="danger" pill className="ms-2" style={{ fontSize: "0.6rem" }}>
+                        {notifications}
+                      </Badge>
+                    )}
                   </Nav.Link>
                   <Nav.Link
                     className={`px-3 py-2 ${activeSection === "profile" ? "bg-primary-custom text-white" : ""}`}
@@ -116,16 +121,22 @@ const StudentDashboard = () => {
                   </Nav.Link>
                 </Nav>
 
-              
+                {/* Chat with Bot Button */}
+                <div className="p-3 border-top">
+                  <Button variant="outline-primary" size="sm" className="w-100">
+                    <i className="fas fa-robot me-2"></i>
+                    Chat with Bot
+                  </Button>
+                </div>
               </Card.Body>
             </Card>
           </Col>
 
           {/* Main Content */}
           <Col lg={9}>
-            {activeSection === "complaints" && <ComplaintSection studentData={studentData} />}
-            {activeSection === "profile" && <ProfileSection studentData={studentData} />}
-            {activeSection === "settings" && <AccountSettings />}
+            {activeSection === "grievances" && <AssignedGrievancesSection facultyData={facultyData} />}
+            {activeSection === "profile" && <FacultyProfileSection facultyData={facultyData} />}
+            {activeSection === "settings" && <FacultyAccountSettings />}
           </Col>
         </Row>
       </Container>
@@ -133,4 +144,4 @@ const StudentDashboard = () => {
   )
 }
 
-export default StudentDashboard
+export default FacultyDashboard
