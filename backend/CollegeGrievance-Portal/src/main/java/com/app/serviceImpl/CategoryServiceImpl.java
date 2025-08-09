@@ -2,7 +2,7 @@ package com.app.serviceImpl;
 
 import com.app.dto.GrievanceCategoryDTO;
 import com.app.entity.GrievanceCategory;
-import com.app.entity.SubCategory;
+
 import com.app.repository.GrievanceCategoryRepository;
 import com.app.service.CategoryService;
 import org.modelmapper.ModelMapper;

@@ -23,7 +23,7 @@ import com.app.repository.GrievanceRepository;
 import com.app.repository.StudentRepository;
 import com.app.service.GrievanceService;
 
-import java.util.UUID;
+
 
 @Service
 public class GrievanceServiceImpl implements GrievanceService {

@@ -1,6 +1,6 @@
 package com.app.dto;
 
-import com.app.entity.Student;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

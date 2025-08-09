@@ -4,7 +4,7 @@ import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 
 @Data
 @NoArgsConstructor
