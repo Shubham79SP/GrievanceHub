@@ -1,32 +1,91 @@
-
-
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import { Container, Row, Col, Card, Form, Button, Alert } from "react-bootstrap"
-import Header from "./LandingPage/NavbarLanding.jsx"
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Container, Row, Col, Card, Form, Button, Alert } from "react-bootstrap";
+import { useAuth } from "../context/authContext";
+import axios from "axios";
+import Header from "../components/LandingPage/NavbarLanding.jsx";
 
 const LoginPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     role: "student",
     rememberMe: false,
-  })
-  const [showAlert, setShowAlert] = useState(false)
+  });
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.username.trim()) {
+      newErrors.username = "Username is required.";
+    }
+    if (!formData.password.trim()) {
+      newErrors.password = "Password is required.";
+    }
+    if (!formData.role) {
+      newErrors.role = "Role is required.";
+    }
+    return newErrors;
+  };
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
-    }))
-  }
+    }));
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setShowAlert(true)
-    console.log("Login data:", formData)
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    setErrors({});
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post("http://localhost:8080/api/users/login", {
+        username: formData.username,
+        password: formData.password,
+        role: formData.role,
+      });
+
+      const userData = response.data;
+      login(userData, formData.rememberMe);
+
+      // Redirect based on role
+      switch (userData.role?.toUpperCase()) {
+        case "ADMIN":
+          navigate("/admin-dashboard");
+          break;
+        case "STUDENT":
+          navigate("/student-dashboard");
+          break;
+        case "FACULTY":
+          navigate("/faculty-dashboard");
+          break;
+        default:
+          setErrors({ submit: "Unexpected role from server." });
+      }
+    } catch (error) {
+      if (error.response?.status === 401) {
+        setErrors({ submit: "Invalid username or password." });
+      } else {
+        setErrors({ submit: "Login failed. Please try again later." });
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
@@ -48,11 +107,6 @@ const LoginPage = () => {
                               style={{ width: "100px", height: "100px" }}
                             >
                               <i className="fas fa-lock text-white" style={{ fontSize: "2.5rem" }}></i>
-                            </div>
-                            <div className="position-absolute top-0 start-0">
-                              <div className="bg-white rounded-circle p-2 shadow-sm">
-                                <i className="fas fa-check text-success"></i>
-                              </div>
                             </div>
                           </div>
                         </div>
@@ -108,15 +162,23 @@ const LoginPage = () => {
                         <Form.Group className="mb-3">
                           <Form.Label className="fw-semibold small">Password</Form.Label>
                           <div className="position-relative">
-                            <Form.Control
-                              type="password"
-                              name="password"
-                              placeholder="Enter password"
-                              value={formData.password}
-                              onChange={handleChange}
-                              required
-                            />
-                            <i className="fas fa-eye position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
+                            <div className="position-relative">
+                              <Form.Control
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                placeholder="Enter password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                              />
+                              <span
+                                className="position-absolute top-50 end-0 translate-middle-y me-3"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => setShowPassword((prev) => !prev)}
+                              >
+                                <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} text-muted`}></i>
+                              </span>
+                            </div>
                           </div>
                         </Form.Group>
 
@@ -133,9 +195,18 @@ const LoginPage = () => {
                             <option value="admin">Admin</option>
                           </Form.Select>
                         </Form.Group>
+                        
 
                         <div className="d-flex justify-content-between align-items-center mb-4">
-                         
+                         <Form.Group className="mb-3">
+                    <Form.Check
+                      type="checkbox"
+                      label="Remember me"
+                      name="rememberMe"
+                      checked={formData.rememberMe}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
                           <Link to="/forgotPassword" className="text-primary-custom text-decoration-none small">
                             Forgot your password?
                           </Link>

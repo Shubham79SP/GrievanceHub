@@ -27,6 +27,7 @@ import com.app.repository.StudentRepository;
 import com.app.repository.SubCategoryRepository;
 import com.app.service.GrievanceService;
 
+
 @Service
 public class GrievanceServiceImpl implements GrievanceService {
 
@@ -75,7 +76,7 @@ public class GrievanceServiceImpl implements GrievanceService {
         Grievance savedGrievance = grievanceRepo.save(grievance);
 
         GrievanceResponseDTO responseDTO = modelMapper.map(savedGrievance, GrievanceResponseDTO.class);
-        responseDTO.setStudentId(student.getPrnNo()); // ✅ Ensure it's numeric
+        responseDTO.setStudentId(student.getPrnNo()); //  Ensure it's numeric
 
         syncGrievanceToDotNet(responseDTO);
 

@@ -130,43 +130,22 @@ const AdminAccountSettings = () => {
         <Card.Header className="bg-light">
           <h6 className="mb-0">
             <i className="fas fa-cogs me-2"></i>
-            System Administration
+            Report Generation of GrievanceHub
           </h6>
         </Card.Header>
         <Card.Body>
           <Row>
-            <Col md={6} className="mb-3">
-              <div className="d-grid">
-                <Button variant="outline-primary">
-                  <i className="fas fa-database me-2"></i>
-                  Backup Database
-                </Button>
-              </div>
-            </Col>
-            <Col md={6} className="mb-3">
-              <div className="d-grid">
-                <Button variant="outline-warning">
-                  <i className="fas fa-broom me-2"></i>
-                  Clear System Logs
-                </Button>
-              </div>
-            </Col>
+            
+            
             <Col md={6} className="mb-3">
               <div className="d-grid">
                 <Button variant="outline-info">
                   <i className="fas fa-download me-2"></i>
-                  Export Reports
+                  Download Grievance Report
                 </Button>
               </div>
             </Col>
-            <Col md={6} className="mb-3">
-              <div className="d-grid">
-                <Button variant="outline-success">
-                  <i className="fas fa-sync me-2"></i>
-                  Sync Data
-                </Button>
-              </div>
-            </Col>
+            
           </Row>
         </Card.Body>
       </Card>
@@ -194,25 +173,12 @@ const AdminAccountSettings = () => {
             <div className="col-md-6 mb-3">
               <strong>Account Created:</strong> 2020-01-15
             </div>
-            <div className="col-md-6 mb-3">
-              <strong>Total Users Managed:</strong> 1,247
-            </div>
-            <div className="col-md-6 mb-3">
-              <strong>System Uptime:</strong> 99.8%
-            </div>
+            
           </div>
 
           <hr />
 
-          <div className="text-center">
-            <p className="text-muted small mb-3">
-              As a system administrator, you have full access to all system functions. Use these privileges responsibly.
-            </p>
-            <Button variant="outline-danger" size="sm">
-              <i className="fas fa-exclamation-triangle me-2"></i>
-              Emergency System Reset
-            </Button>
-          </div>
+         
         </Card.Body>
       </Card>
     </div>

@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import { Container, Row, Col, Card, Button, Badge, Nav, Navbar } from "react-bootstrap"
-import FacultyProfileSection from "./faculty/FacultyProfileSection"
-import AssignedGrievancesSection from "./faculty/AssignedGrievancesSection"
-import FacultyAccountSettings from "./faculty/FacultyAccountSettings"
+import FacultyProfileSection from "../components/faculty/FacultyProfileSection"
+import AssignedGrievancesSection from "../components/faculty/AssignedGrievancesSection"
+import FacultyAccountSettings from "../components/faculty/FacultyAccountSettings"
 import { Link } from "react-router-dom"
 
 const FacultyDashboard = () => {

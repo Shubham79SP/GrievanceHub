@@ -10,6 +10,7 @@ const AssignedGrievancesSection = ({ facultyData }) => {
   const [statusFilter, setStatusFilter] = useState("")
   const [facultyNotes, setFacultyNotes] = useState("")
   const [newStatus, setNewStatus] = useState("")
+  const [showContactModal, setShowContactModal] = useState(false)
 
   // Mock assigned grievances data
   const [grievances, setGrievances] = useState([
@@ -408,14 +409,36 @@ const AssignedGrievancesSection = ({ facultyData }) => {
                         <i className="fas fa-check me-1"></i>
                         Mark as Resolved
                       </Button>
-                      <Button variant="info" size="sm">
+                      <Button variant="info" size="sm" onClick={() => setShowContactModal(true)}>
                         <i className="fas fa-phone me-1"></i>
                         Contact Student
                       </Button>
-                      <Button variant="warning" size="sm">
-                        <i className="fas fa-forward me-1"></i>
-                        Forward to Admin
-                      </Button>
+      {/* Contact Student Modal */}
+      <Modal show={showContactModal} onHide={() => setShowContactModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Student Contact Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedGrievance ? (
+            <div>
+              <p><strong>Name:</strong> {selectedGrievance.raisedBy}</p>
+              <p><strong>PRN:</strong> {selectedGrievance.studentPRN}</p>
+              <p><strong>Department:</strong> {selectedGrievance.studentDepartment}</p>
+              {/* Add more fields if available, e.g., email, phone */}
+              <p><strong>Email:</strong> {selectedGrievance.studentEmail || 'Not available'}</p>
+              <p><strong>Phone:</strong> {selectedGrievance.studentPhone || 'Not available'}</p>
+            </div>
+          ) : (
+            <p>No student selected.</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowContactModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
                     </div>
                   </Card.Body>
                 </Card>

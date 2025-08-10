@@ -11,8 +11,8 @@ const CategoryManagementSection = () => {
     name: "",
     description: "",
     department: "",
+    subcategory: "",
     priority: "medium",
-    autoAssign: false,
   })
 
   // Mock categories data
@@ -23,7 +23,7 @@ const CategoryManagementSection = () => {
       description: "Issues related to courses, exams, grades, and academic matters",
       department: "Computer Science",
       priority: "high",
-      autoAssign: true,
+      subcategory: "Exam Issue",
       grievanceCount: 45,
       status: "active",
     },
@@ -33,7 +33,7 @@ const CategoryManagementSection = () => {
       description: "Problems with college infrastructure, facilities, and maintenance",
       department: "Administration",
       priority: "medium",
-      autoAssign: false,
+      subcategory: "Classroom Maintenance",
       grievanceCount: 23,
       status: "active",
     },
@@ -43,7 +43,7 @@ const CategoryManagementSection = () => {
       description: "Hostel-related complaints including accommodation and facilities",
       department: "Administration",
       priority: "medium",
-      autoAssign: true,
+      subcategory: "Hostel",
       grievanceCount: 18,
       status: "active",
     },
@@ -53,7 +53,7 @@ const CategoryManagementSection = () => {
       description: "Issues related to fee payment, refunds, and financial matters",
       department: "Accounts",
       priority: "high",
-      autoAssign: true,
+      subcategory: "Fees",
       grievanceCount: 12,
       status: "active",
     },
@@ -63,7 +63,7 @@ const CategoryManagementSection = () => {
       description: "Library-related issues including book availability and services",
       department: "Library",
       priority: "low",
-      autoAssign: false,
+      subcategory: "General",
       grievanceCount: 8,
       status: "inactive",
     },
@@ -168,8 +168,8 @@ const CategoryManagementSection = () => {
                 <tr>
                   <th>Category Name</th>
                   <th>Department</th>
+                  <th>Subcategory</th>
                   <th>Priority</th>
-                  <th>Auto Assign</th>
                   <th>Grievances</th>
                   <th>Status</th>
                   <th>Actions</th>
@@ -185,20 +185,8 @@ const CategoryManagementSection = () => {
                       </div>
                     </td>
                     <td>{category.department}</td>
+                    <td>{category.subcategory}</td>
                     <td>{getPriorityBadge(category.priority)}</td>
-                    <td>
-                      {category.autoAssign ? (
-                        <Badge bg="success">
-                          <i className="fas fa-check me-1"></i>
-                          Yes
-                        </Badge>
-                      ) : (
-                        <Badge bg="secondary">
-                          <i className="fas fa-times me-1"></i>
-                          No
-                        </Badge>
-                      )}
-                    </td>
                     <td>
                       <Badge bg="primary">{category.grievanceCount}</Badge>
                     </td>
@@ -236,7 +224,7 @@ const CategoryManagementSection = () => {
         <Form onSubmit={handleAddCategory}>
           <Modal.Body>
             <Row>
-              <Col md={6}>
+              <Col md={4}>
                 <Form.Group className="mb-3">
                   <Form.Label>Category Name</Form.Label>
                   <Form.Control
@@ -248,7 +236,7 @@ const CategoryManagementSection = () => {
                   />
                 </Form.Group>
               </Col>
-              <Col md={6}>
+              <Col md={4}>
                 <Form.Group className="mb-3">
                   <Form.Label>Department</Form.Label>
                   <Form.Select
@@ -263,6 +251,18 @@ const CategoryManagementSection = () => {
                       </option>
                     ))}
                   </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col md={4}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Subcategory</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter subcategory (e.g. Exam Issue, Hostel, Fees)"
+                    value={newCategory.subcategory}
+                    onChange={(e) => setNewCategory({ ...newCategory, subcategory: e.target.value })}
+                    required
+                  />
                 </Form.Group>
               </Col>
             </Row>
@@ -291,7 +291,7 @@ const CategoryManagementSection = () => {
                   </Form.Select>
                 </Form.Group>
               </Col>
-              <Col md={6}>
+              {/* <Col md={6}>
                 <Form.Group className="mb-3">
                   <Form.Label>Auto Assignment</Form.Label>
                   <Form.Check
@@ -301,7 +301,7 @@ const CategoryManagementSection = () => {
                     onChange={(e) => setNewCategory({ ...newCategory, autoAssign: e.target.checked })}
                   />
                 </Form.Group>
-              </Col>
+              </Col> */}
             </Row>
           </Modal.Body>
           <Modal.Footer>
@@ -323,7 +323,7 @@ const CategoryManagementSection = () => {
         <Form onSubmit={handleUpdateCategory}>
           <Modal.Body>
             <Row>
-              <Col md={6}>
+              <Col md={4}>
                 <Form.Group className="mb-3">
                   <Form.Label>Category Name</Form.Label>
                   <Form.Control
@@ -335,7 +335,7 @@ const CategoryManagementSection = () => {
                   />
                 </Form.Group>
               </Col>
-              <Col md={6}>
+              <Col md={4}>
                 <Form.Group className="mb-3">
                   <Form.Label>Department</Form.Label>
                   <Form.Select
@@ -350,6 +350,18 @@ const CategoryManagementSection = () => {
                       </option>
                     ))}
                   </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col md={4}>
+                <Form.Group className="mb-3">
+                  <Form.Label>Subcategory</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter subcategory (e.g. Exam Issue, Hostel, Fees)"
+                    value={newCategory.subcategory}
+                    onChange={(e) => setNewCategory({ ...newCategory, subcategory: e.target.value })}
+                    required
+                  />
                 </Form.Group>
               </Col>
             </Row>

@@ -2,7 +2,7 @@ package com.app.dto;
 
 import lombok.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 
 /**
  * DTO for creating a grievance.

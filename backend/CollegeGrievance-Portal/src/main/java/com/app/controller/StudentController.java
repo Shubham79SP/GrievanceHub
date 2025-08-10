@@ -1,6 +1,5 @@
 package com.app.controller;
 
-import com.app.dto.LoginRequest;
 import com.app.entity.Student;
 import com.app.service.StudentService;
 

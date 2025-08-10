@@ -31,7 +31,6 @@ public class ResponseServiceImpl implements ResponseService {
     private GrievanceRepository grievanceRepo;
 
     @Autowired
-    private ModelMapper modelMapper;
 
     @Override
     public Response createResponse(ResponseDTO dto) {

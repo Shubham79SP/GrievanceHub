@@ -1,11 +1,11 @@
-"use client"
-
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { Container, Row, Col, Card, Form, Button, Alert } from "react-bootstrap"
-import Header from "./LandingPage/NavbarLanding.jsx"
+import Header from "../components/LandingPage/NavbarLanding.jsx"
 
 const RegisterPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -16,6 +16,8 @@ const RegisterPage = () => {
     confirmPassword: "",
     agreeTerms: false,
   })
+
+  const [errors, setErrors] = useState({})
   const [showAlert, setShowAlert] = useState(false)
 
   const departments = [
@@ -34,14 +36,74 @@ const RegisterPage = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }))
+
+    // Clear error on change
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }))
+    }
+  }
+
+  const validateForm = () => {
+    let newErrors = {}
+
+    // Full name validation
+    if (!formData.fullName) {
+      newErrors.fullName = "Full name is required"
+    } else if (!/^([a-zA-Z]+[ \-']{0,1}){1,3}$/.test(formData.fullName)) {
+      newErrors.fullName = "Please enter a valid name"
+    }
+
+    // Email validation
+    if (!formData.email) {
+      newErrors.email = "Email is required"
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address"
+    }
+
+    // Student ID validation
+    if (!formData.studentId) {
+      newErrors.studentId = "Student/Employee ID is required"
+    } else if (!/^[A-Za-z0-9]{4,15}$/.test(formData.studentId)) {
+      newErrors.studentId = "ID should be 4-15 characters without spaces"
+    }
+
+    // Department validation
+    if (!formData.department) {
+      newErrors.department = "Please select your department"
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = "Password is required"
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters"
+    } else if (!/[A-Z]/.test(formData.password)) {
+      newErrors.password = "Password must contain at least one uppercase letter"
+    } else if (!/[0-9]/.test(formData.password)) {
+      newErrors.password = "Password must contain at least one number"
+    } else if (!/[^\w\s]/.test(formData.password)) {
+      newErrors.password = "Password must contain at least one special character"
+    }
+
+    // Confirm password validation
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Please confirm your password"
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match"
+    }
+
+    // Terms & Conditions
+    if (!formData.agreeTerms) {
+      newErrors.agreeTerms = "You must agree to the terms"
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!")
-      return
-    }
+    if (!validateForm()) return
     setShowAlert(true)
     console.log("Registration data:", formData)
   }
@@ -158,7 +220,11 @@ const RegisterPage = () => {
                                 onChange={handleChange}
                                 size="sm"
                                 required
+                                isInvalid={!!errors.fullName}
                               />
+                              <Form.Control.Feedback type="invalid">
+                                {errors.fullName}
+                              </Form.Control.Feedback>
                             </Form.Group>
                           </Col>
                           <Col md={6}>
@@ -172,7 +238,11 @@ const RegisterPage = () => {
                                 onChange={handleChange}
                                 size="sm"
                                 required
+                                isInvalid={!!errors.email}
                               />
+                              <Form.Control.Feedback type="invalid">
+                                {errors.email}
+                              </Form.Control.Feedback>
                             </Form.Group>
                           </Col>
                         </Row>
@@ -189,7 +259,11 @@ const RegisterPage = () => {
                                 onChange={handleChange}
                                 size="sm"
                                 required
+                                isInvalid={!!errors.studentId}
                               />
+                              <Form.Control.Feedback type="invalid">
+                                {errors.studentId}
+                              </Form.Control.Feedback>
                             </Form.Group>
                           </Col>
                           <Col md={6}>
@@ -201,6 +275,7 @@ const RegisterPage = () => {
                                 onChange={handleChange}
                                 size="sm"
                                 required
+                                isInvalid={!!errors.department}
                               >
                                 <option value="">Select Department</option>
                                 {departments.map((dept) => (
@@ -209,6 +284,9 @@ const RegisterPage = () => {
                                   </option>
                                 ))}
                               </Form.Select>
+                              <Form.Control.Feedback type="invalid">
+                                {errors.department}
+                              </Form.Control.Feedback>
                             </Form.Group>
                           </Col>
                         </Row>
@@ -217,29 +295,55 @@ const RegisterPage = () => {
                           <Col md={6}>
                            <Form.Group className="mb-3">
                               <Form.Label className="fw-semibold small">Password</Form.Label>
-                              <Form.Control
-                                type="password"
-                                name="password"
-                                placeholder="Create a password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                size="sm"
-                                required
-                              />
+                              <div className="position-relative">
+                                <Form.Control
+                                  type={showPassword ? "text" : "password"}
+                                  name="password"
+                                  placeholder="Create a password"
+                                  value={formData.password}
+                                  onChange={handleChange}
+                                  size="sm"
+                                  required
+                                  isInvalid={!!errors.password}
+                                />
+                                <span
+                                  className="position-absolute top-50 end-0 translate-middle-y me-3"
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => setShowPassword((prev) => !prev)}
+                                >
+                                  <i className={`fas ${showPassword ? "fa-eye-slash" : "fa-eye"} text-muted`}></i>
+                                </span>
+                                <Form.Control.Feedback type="invalid">
+                                  {errors.password}
+                                </Form.Control.Feedback>
+                              </div>
                             </Form.Group>
                           </Col>
                           <Col md={6}>
                           <Form.Group className="mb-3">
                           <Form.Label className="fw-semibold small">Confirm Password</Form.Label>
-                          <Form.Control
-                            type="password"
-                            name="confirmPassword"
-                            placeholder="Confirm your password"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
-                            size="sm"
-                            required
-                          />
+                          <div className="position-relative">
+                            <Form.Control
+                              type={showConfirmPassword ? "text" : "password"}
+                              name="confirmPassword"
+                              placeholder="Confirm your password"
+                              value={formData.confirmPassword}
+                              onChange={handleChange}
+                              size="sm"
+                              required
+                              isInvalid={!!errors.confirmPassword}
+                            />
+                            <span
+                              className="position-absolute top-50 end-0 translate-middle-y me-3"
+                              style={{ cursor: "pointer" }}
+                              onClick={() => setShowConfirmPassword((prev) => !prev)}
+                            >
+                              <i className={`fas ${showConfirmPassword ? "fa-eye-slash" : "fa-eye"} text-muted`}></i>
+                            </span>
+                            <Form.Control.Feedback type="invalid">
+                              {errors.confirmPassword}
+                            </Form.Control.Feedback>
+                          </div>
                         </Form.Group>
                            
                           </Col>
@@ -256,7 +360,11 @@ const RegisterPage = () => {
                             onChange={handleChange}
                             className="small"
                             required
+                            isInvalid={!!errors.agreeTerms}
                           />
+                          <Form.Control.Feedback type="invalid">
+                            {errors.agreeTerms}
+                          </Form.Control.Feedback>
                         </Form.Group>
 
                         <Button type="submit" className="primary-btn w-100 mb-3">
