@@ -1,19 +1,20 @@
 package com.app.dto;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * DTO for creating a grievance.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
-//For Student to Submit Grievance 
 public class GrievanceCreateDTO {
-	private Long categoryId;
+
+    @NotNull(message = "Category ID is required")
+    private Long categoryId;
 
     @NotBlank(message = "Title is required")
     private String title;
@@ -24,8 +25,9 @@ public class GrievanceCreateDTO {
     @NotBlank(message = "Category Name is required")
     private String categoryName;
 
-    @NotBlank(message = "Student ID (PRN) is required")
-    private Long studentId;
+    @NotBlank(message = "Sub Category Name is required")
+    private String subCategoryName;
 
-    private MultipartFile attachmentFile;  // Optional; handled in service layer
+    @NotNull(message = "Student ID is required")
+    private Long studentId; // Maps to prn_no in DB
 }

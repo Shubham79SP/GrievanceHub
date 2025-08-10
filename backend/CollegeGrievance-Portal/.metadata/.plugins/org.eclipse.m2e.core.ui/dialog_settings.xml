@@ -2,8 +2,8 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
-			<item value="C:\Users\HP\Desktop\College_Grievance_Portal\backend\CollegeGrievance-Portal\src"/>
 			<item value="C:\Users\HP\Desktop\College_Grievance_Portal\backend\CollegeGrievance-Portal"/>
+			<item value="C:\Users\HP\Desktop\College_Grievance_Portal\backend\CollegeGrievance-Portal\src"/>
 			<item value="C:\Users\HP\Desktop\College_Grievance_Portal\backend\CollegeGrievance-Portal\src\main\java\com\app\entity"/>
 			<item value="C:\Users\HP\Desktop\College_Grievance_Portal\backend\CollegeGrievance-Portal\src\main\java\com\app"/>
 		</list>

@@ -4,10 +4,14 @@ import com.app.dto.GrievanceCreateDTO;
 import com.app.dto.GrievanceResponseDTO;
 import com.app.dto.GrievanceUpdateByFacultyDTO;
 import com.app.service.GrievanceService;
+
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,44 +21,43 @@ public class GrievanceController {
 
     private final GrievanceService grievanceService;
 
-    //  Create a new grievance (by student)
-    @PostMapping
-    public ResponseEntity<GrievanceResponseDTO> createGrievance(@RequestBody GrievanceCreateDTO dto) {
-        GrievanceResponseDTO created = grievanceService.createGrievance(dto);
-        return ResponseEntity.ok(created);
+    /**
+     * Create a new grievance (by student)
+     * Accepts JSON grievance details only (no file upload)
+     */
+    @PostMapping("")
+    public ResponseEntity<GrievanceResponseDTO> createGrievance(
+            @Valid @RequestBody GrievanceCreateDTO grievanceDTO) {
+
+        GrievanceResponseDTO savedGrievance = grievanceService.createGrievance(grievanceDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedGrievance);
     }
 
-    //  Get all grievances (admin/faculty/student based on role)
     @GetMapping
     public ResponseEntity<List<GrievanceResponseDTO>> getAllGrievances() {
-        List<GrievanceResponseDTO> list = grievanceService.getAllGrievances();
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(grievanceService.getAllGrievances());
     }
 
-    // Get grievance by ID
     @GetMapping("/{id}")
     public ResponseEntity<GrievanceResponseDTO> getById(@PathVariable Long id) {
-        GrievanceResponseDTO dto = grievanceService.getGrievanceById(id);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(grievanceService.getGrievanceById(id));
     }
 
-    //  Faculty updates grievance (remark, status, assigned faculty, etc.)
     @PutMapping("/{id}/faculty-update")
     public ResponseEntity<GrievanceResponseDTO> updateByFaculty(
             @PathVariable Long id,
             @RequestBody GrievanceUpdateByFacultyDTO updateDTO) {
 
         GrievanceResponseDTO updated = grievanceService.updateGrievanceByFaculty(id, updateDTO);
+//        grievanceService.syncGrievanceToDotNet(updated);
         return ResponseEntity.ok(updated);
     }
 
-    //  Get grievances for a specific student
     @GetMapping("/student/{studentId}")
     public ResponseEntity<GrievanceResponseDTO> getGrievancesByStudent(@PathVariable Long studentId) {
         return ResponseEntity.ok(grievanceService.getGrievanceById(studentId));
     }
 
-    // ⬅️ Get grievances assigned to a specific faculty
     @GetMapping("/faculty/{facultyId}")
     public ResponseEntity<List<GrievanceResponseDTO>> getGrievancesForFaculty(@PathVariable Long facultyId) {
         return ResponseEntity.ok(grievanceService.getGrievancesAssignedToFaculty(facultyId));

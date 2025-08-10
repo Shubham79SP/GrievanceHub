@@ -11,19 +11,21 @@ import org.springframework.stereotype.Service;
 import com.app.dto.GrievanceCreateDTO;
 import com.app.dto.GrievanceResponseDTO;
 import com.app.dto.GrievanceUpdateByFacultyDTO;
+import com.app.dto.WrapperDTO;
 import com.app.entity.Faculty;
 import com.app.entity.Grievance;
 import com.app.entity.GrievanceCategory;
 import com.app.entity.Student;
+import com.app.entity.SubCategory;
 import com.app.enums.GrievanceStatusEnum;
 import com.app.exception.ResourceNotFoundException;
+import com.app.project.client.DotNetApiClient;
 import com.app.repository.FacultyRepository;
 import com.app.repository.GrievanceCategoryRepository;
 import com.app.repository.GrievanceRepository;
 import com.app.repository.StudentRepository;
+import com.app.repository.SubCategoryRepository;
 import com.app.service.GrievanceService;
-
-import java.util.UUID;
 
 @Service
 public class GrievanceServiceImpl implements GrievanceService {
@@ -43,7 +45,12 @@ public class GrievanceServiceImpl implements GrievanceService {
     @Autowired
     private ModelMapper modelMapper;
 
-    // CREATE
+    @Autowired
+    private SubCategoryRepository subCategoryRepo;
+
+    @Autowired
+    private DotNetApiClient dotNetApiClient;
+
     @Override
     public GrievanceResponseDTO createGrievance(GrievanceCreateDTO dto) {
         Student student = studentRepo.findById(dto.getStudentId())
@@ -52,18 +59,29 @@ public class GrievanceServiceImpl implements GrievanceService {
         GrievanceCategory category = categoryRepo.findById(dto.getCategoryId())
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 
-        Grievance grievance = modelMapper.map(dto, Grievance.class);
-   
+        SubCategory subCategory = subCategoryRepo
+                .findByNameAndCategoryCategoryId(dto.getSubCategoryName(), dto.getCategoryId())
+                .orElseThrow(() -> new ResourceNotFoundException("SubCategory not found"));
+
+        Grievance grievance = new Grievance();
+        grievance.setTitle(dto.getTitle());
+        grievance.setDescription(dto.getDescription());
         grievance.setStudent(student);
         grievance.setCategory(category);
+        grievance.setSubCategory(subCategory);
         grievance.setSubmittedDate(LocalDate.now());
         grievance.setStatus(GrievanceStatusEnum.PENDING);
 
-        grievance = grievanceRepo.save(grievance);
-        return modelMapper.map(grievance, GrievanceResponseDTO.class);
+        Grievance savedGrievance = grievanceRepo.save(grievance);
+
+        GrievanceResponseDTO responseDTO = modelMapper.map(savedGrievance, GrievanceResponseDTO.class);
+        responseDTO.setStudentId(student.getPrnNo()); // ✅ Ensure it's numeric
+
+        syncGrievanceToDotNet(responseDTO);
+
+        return responseDTO;
     }
 
-    // UPDATE BY FACULTY
     @Override
     public GrievanceResponseDTO updateGrievanceByFaculty(Long id, GrievanceUpdateByFacultyDTO dto) {
         Grievance grievance = grievanceRepo.findById(id)
@@ -73,18 +91,20 @@ public class GrievanceServiceImpl implements GrievanceService {
                 .orElseThrow(() -> new ResourceNotFoundException("Faculty not found"));
 
         grievance.setFacultyAssigned(faculty);
-
-
         grievance.setStatus(dto.getStatus());
         grievance.setRemark(dto.getRemark());
-        grievance.setFacultyAssigned(faculty);
         grievance.setLastUpdatedDate(LocalDate.now());
 
-        grievance = grievanceRepo.save(grievance);
-        return modelMapper.map(grievance, GrievanceResponseDTO.class);
+        Grievance updated = grievanceRepo.save(grievance);
+
+        GrievanceResponseDTO responseDTO = modelMapper.map(updated, GrievanceResponseDTO.class);
+        responseDTO.setStudentId(updated.getStudent().getPrnNo()); // ✅ Ensure it's numeric
+
+        syncGrievanceToDotNet(responseDTO);
+
+        return responseDTO;
     }
 
-    // GET BY ID
     @Override
     public GrievanceResponseDTO getGrievanceById(Long id) {
         Grievance grievance = grievanceRepo.findById(id)
@@ -92,16 +112,13 @@ public class GrievanceServiceImpl implements GrievanceService {
         return modelMapper.map(grievance, GrievanceResponseDTO.class);
     }
 
-    // GET ALL
     @Override
     public List<GrievanceResponseDTO> getAllGrievances() {
-        List<Grievance> grievances = grievanceRepo.findAll();
-        return grievances.stream()
+        return grievanceRepo.findAll().stream()
                 .map(g -> modelMapper.map(g, GrievanceResponseDTO.class))
                 .collect(Collectors.toList());
     }
 
-    // DELETE
     @Override
     public void deleteGrievance(Long id) {
         Grievance grievance = grievanceRepo.findById(id)
@@ -111,9 +128,19 @@ public class GrievanceServiceImpl implements GrievanceService {
 
     @Override
     public List<GrievanceResponseDTO> getGrievancesAssignedToFaculty(Long facultyId) {
-        List<Grievance> grievances = grievanceRepo.findByFacultyAssignedId(facultyId);
-        return grievances.stream()
-                         .map(g -> modelMapper.map(g, GrievanceResponseDTO.class))
-                         .toList();
+        return grievanceRepo.findByFacultyAssignedId(facultyId).stream()
+                .map(g -> modelMapper.map(g, GrievanceResponseDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void syncGrievanceToDotNet(GrievanceResponseDTO grievanceDto) {
+        try {
+            WrapperDTO wrapper = new WrapperDTO();
+            wrapper.setGrievance(grievanceDto);
+            dotNetApiClient.syncNewGrievance(wrapper);
+        } catch (Exception e) {
+            System.err.println("Failed to sync grievance to .NET: " + e.getMessage());
+        }
     }
 }

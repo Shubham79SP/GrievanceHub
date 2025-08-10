@@ -1,6 +1,8 @@
 package com.app.dto;
 
 import com.app.enums.GrievanceStatusEnum;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.*;
 
 import java.time.LocalDate;
@@ -23,7 +25,7 @@ public class GrievanceResponseDTO {
 
     private String attachmentPath;
 
-    private String studentId;
+    private Long studentId;
 
     private String studentName;   // from student entity
 
@@ -31,11 +33,14 @@ public class GrievanceResponseDTO {
 
     private String year;
 
-    private String categoryId;
+    private Long categoryId;
 
     private String categoryName;
 
+    @JsonProperty("FacultyId")
     private Long facultyAssigned;   // Faculty name/email (optional)
+    
+    private Long subCategoryId;
 
     private String remark;
 

@@ -10,14 +10,15 @@ public interface GrievanceService {
 
     GrievanceResponseDTO createGrievance(GrievanceCreateDTO dto);
 
-    GrievanceResponseDTO updateGrievanceByFaculty(Long grievanceId, GrievanceUpdateByFacultyDTO dto);
+    GrievanceResponseDTO updateGrievanceByFaculty(Long id, GrievanceUpdateByFacultyDTO dto);
+
+    GrievanceResponseDTO getGrievanceById(Long id);
 
     List<GrievanceResponseDTO> getAllGrievances();
 
-    GrievanceResponseDTO getGrievanceById(Long grievanceId);
+    void deleteGrievance(Long id);
 
-	void deleteGrievance(Long id);
+    List<GrievanceResponseDTO> getGrievancesAssignedToFaculty(Long facultyId);
 
-	List<GrievanceResponseDTO> getGrievancesAssignedToFaculty(Long facultyId);
-
+    void syncGrievanceToDotNet(GrievanceResponseDTO grievanceDto);
 }

@@ -50,5 +50,11 @@ public class Grievance {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_assigned_id")
     private Faculty facultyAssigned;
+    
+    //to assign grievance base on subcategory to faculty 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sub_category_id")  // FK column in grievances table
+    private SubCategory subCategory;
+
 
 }
